@@ -3,7 +3,7 @@ import express from "express"; // web framework
 import bodyParser from "body-parser";// middleware for parsing request bodies
 import mongoose from "mongoose"; // ODM library for MongoDB
 import cors from "cors"; // middleware for enabling Cross-Origin Resource Sharing
-import dotenv from "dotenv"; // package for managing environment variables
+import * as dotenv from "dotenv"; // package for managing environment variables
 import multer from "multer"; // middleware for handling file uploads
 import helmet from "helmet"; // middleware for securing HTTP headers
 import morgan from "morgan"; // middleware for logging HTTP requests and responses
