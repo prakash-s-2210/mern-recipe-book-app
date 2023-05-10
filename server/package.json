@@ -19,6 +19,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
+    "build": "echo sucess",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
