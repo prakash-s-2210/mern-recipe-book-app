@@ -1,0 +1,30 @@
+.user-details-container{
+    box-sizing: border-box;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    // background-color: #1A1A1A;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.user-details-flex{
+    display: flex;
+    flex-direction: column;
+}
+.user-name-style{
+    display: inline-block;
+    padding: 10px;
+}
+.user-email-style{
+    display: inline-block;
+    padding: 10px;
+}
+.user-image-style{
+    width: 80px;
+    height: 90px;
+    border-radius: 8px;
+    img{
+        object-fit: cover;
+    }
+}

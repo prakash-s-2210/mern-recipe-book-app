@@ -1,0 +1,40 @@
+.profile-container{
+    margin-top: 92px;
+    padding: 2rem 4rem;
+}
+.profile-recipe-catalogue-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    background-color: #1A1A1A;
+    border-radius: 8px;
+}
+.saved-recipes-text{
+    color: #fff;
+    padding-left: 20px;
+}
+@media screen and (max-width: 900px) {
+    .profile-container{
+        padding: 32px;
+    }
+}
+@media screen and (max-width: 426px) {
+    .profile-container{
+        padding: 16px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .profile-recipe-catalogue-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {
+    .profile-recipe-catalogue-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 550px) {
+    .profile-recipe-catalogue-container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -1,0 +1,55 @@
+.dropzone-container{
+    padding: 16px;
+    border: 1px solid #434343;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+.dropzone-container:hover{
+    cursor: pointer;
+}
+.dropzone-wrapper{
+    border: 2px dashed orange;
+    padding: 16px;
+}
+.add-picture{
+    color: #fff;
+    font-size: 14px;
+}
+.upload {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px;
+    .uploaded-file-text{
+        color: #fff;
+        margin-bottom: 0px;
+    }
+    .edit-icon{
+        color: #fff;
+    }
+}
+.button-wrapper button{
+    box-sizing: border-box;
+    width: 100%;
+    margin: 20px 0px;
+    padding: 16px 0px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #2c32e6;
+}
+.button-wrapper button:hover{
+    cursor: pointer;
+    background-color: #5457b6;
+}
+.login-or-register{
+    text-decoration: underline;
+    color: #2c32e6;
+    font-size: 14px;
+}
+.login-or-register:hover{
+    color: #5457b6;
+    cursor: pointer;
+}
