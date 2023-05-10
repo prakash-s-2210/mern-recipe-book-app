@@ -1,5 +1,6 @@
 // Importing necessary packages and modules
 import express from "express"; // web framework
+import connectDB from "./mongodb/connect.js";
 import bodyParser from "body-parser";// middleware for parsing request bodies
 import mongoose from "mongoose"; // ODM library for MongoDB
 import cors from "cors"; // middleware for enabling Cross-Origin Resource Sharing
@@ -55,15 +56,17 @@ app.use("/users", userRoutes); // use user routes
  
 //MONGOOSE SETUP
 const PORT = process.env.PORT || 6001; // set server port
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => {
-    app.listen(PORT, () => console.log(`Server started on Port http://localhost:8080`)); // start server and print message to console
 
-    // ADD DATA ONE TIME 
-    // User.insertMany(users);
-    // SavedRecipes.insertMany(savedRecipes);
-})
-.catch((error) => console.log( `${error} did not connect`));
+const startServer = async () => {
+  try {
+      connectDB(process.env.MONGO_URL);
+
+      app.listen(PORT, () =>
+          console.log("Server started on port http://localhost:8080"),
+      );
+  } catch (error) {
+      console.log(error);
+  }
+};
+
+startServer();
