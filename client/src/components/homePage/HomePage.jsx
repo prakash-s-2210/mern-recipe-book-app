@@ -7,9 +7,11 @@ import Header from "../header/Header";
 import RecipeList from "../recipeList/RecipeList";
 import RecipeDetail from "../recipeDetail/RecipeDetail";
 import { setSavedRecipes } from "../../state";
+import { useNavigate } from "react-router-dom";
 
 // HomePage component
 const HomePage = () => {
+  const navigate = useNavigate();
   // Using useDispatch and useSelector hooks
   const dispatch = useDispatch();
   const { user, savedRecipes, token } = useSelector((state) => state);
@@ -72,10 +74,22 @@ const HomePage = () => {
     setSearchedRecipes(response.data.results);
   };
 
+  // Function to navigate to Home Page 
+  function handleNavigateHome(){
+    setRecipeDetail(null);
+    navigate('/home');
+  }
+
+  // Function to navigate to Profile Page 
+  function handleNavigateProfile(userId){
+    setRecipeDetail(null);
+    navigate(`/profile/${userId}`)
+  }
+
   return (
     <div className="home-page-container">
       {/* Renders the header component with the search bar and profile icon */}
-      <Header searchRecipes={searchRecipes} isHome={true} />
+      <Header searchRecipes={searchRecipes} isHome={true} handleNavigateHome = {handleNavigateHome} handleNavigateProfile = {handleNavigateProfile}/>
 
       {/* Renders the recipe list or the recipe detail component */}
       {recipeDetail ? <RecipeDetail recipe = {recipeDetail}/>

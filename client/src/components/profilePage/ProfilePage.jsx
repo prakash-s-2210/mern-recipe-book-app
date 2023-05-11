@@ -7,8 +7,10 @@ import Header from "../header/Header";
 import User from "../user/User";
 import RecipeList from "../recipeList/RecipeList";
 import RecipeDetail from "../recipeDetail/RecipeDetail";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [recipeDetail, setRecipeDetail] = useState(null);
   const dispatch = useDispatch();
@@ -63,10 +65,21 @@ const ProfilePage = () => {
     setRecipeDetail(recipeDetail);
   }
   
+  // Function to navigate to Home Page 
+  function handleNavigateHome(){
+    setRecipeDetail(null);
+    navigate('/home');
+  }
+
+  // Function to navigate to Profile Page 
+  function handleNavigateProfile(userId){
+    setRecipeDetail(null);
+    navigate(`/profile/${userId}`)
+  }
 
   return (
     <div>
-      <Header isHome={false} />
+      <Header isHome={false} handleNavigateHome = {handleNavigateHome} handleNavigateProfile = {handleNavigateProfile} />
       {recipeDetail ? (
           <RecipeDetail recipe={recipeDetail} />
         ) : (

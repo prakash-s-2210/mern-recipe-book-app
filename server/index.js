@@ -57,24 +57,11 @@ app.use("/users", userRoutes); // use user routes
 //MONGOOSE SETUP
 const PORT = process.env.PORT || 6001; // set server port
 
-// const startServer = async () => {
-//   try {
-//       connectDB(process.env.MONGO_URL);
-
-//       app.listen(PORT, () =>
-//           console.log("Server started on port http://localhost:8080"),
-//       );
-//   } catch (error) {
-//       console.log(error);
-//   }
-// };
-
-// startServer();
 const startServer = async () => {
   try {
-      connectDB('mongodb+srv://admin:Prakash2210@cluster0.la7rdg3.mongodb.net/?retryWrites=true&w=majority', () => {
+      connectDB(process.env.MONGO_URL, () => {
       console.log("MongoDB connected, starting server...");
-      app.listen(8080, () => console.log("Server started on port http://localhost:8080")
+      app.listen(PORT, () => console.log("Server started on port http://localhost:8080")
       );
     });
   } catch (error) {

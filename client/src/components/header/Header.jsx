@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../header/Header.scss";
 import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +13,9 @@ import {setLogout} from "../../state/index";
  * @param {boolean} isProfile - A boolean that determines if the header is being used on a profile page.
  * @returns {JSX.Element} - A JSX.Element representing the Header component.
  */
-function Header({searchRecipes, isHome}) {
+function Header({searchRecipes, isHome, handleNavigateHome, handleNavigateProfile}) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
   const userId = useSelector((state) => state.user._id)
   const [showDropdown, setShowDropdown] = useState(false);
   const [inputData, setInputData] = useState("");
@@ -41,7 +40,7 @@ function Header({searchRecipes, isHome}) {
   return (
     <div className="header-wrapper">
       {/* Logo */}
-      <div className="logo-wrapper" onClick={() => navigate("/home")}>
+      <div className="logo-wrapper" onClick={() => handleNavigateHome()}>
         <img src={logo} alt="logo" className="logo-image" />
         <span className="name">Recipe Book</span>
       </div>
@@ -91,7 +90,7 @@ function Header({searchRecipes, isHome}) {
         {/* User Profile Dropdown Options */}
         <div className={`dropdown-wrapper ${showDropdown ? "show" : "hide"}`}>
           <span className="dropdown-profile"onClick={() => {
-            navigate(`/profile/${userId}`)
+            handleNavigateProfile(userId);
           }}>Profile</span>
           <span className="dropdown-logout" onClick={() => dispatch(setLogout())}>Logout</span>
         </div>
