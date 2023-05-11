@@ -15,7 +15,7 @@ The application also has a recipe detail page that displays information such as 
 
 To use the application, users must first sign up with their name, email, password, and profile picture. Once signed in, they can search for recipes, save their favorite recipes, and view their saved recipes on their profile page. The application also provides a logout button to ensure the user's privacy and security.
 
-
+ 
 ## Installation
 
 To run this project, you'll need to have Node.js and MongoDB installed on your system. You can download Node.js from the official website: https://nodejs.org/, and install MongoDB by following the instructions provided here: https://docs.mongodb.com/manual/installation/.
