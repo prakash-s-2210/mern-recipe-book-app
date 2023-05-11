@@ -24,7 +24,7 @@ const ProfilePage = () => {
       try{
        // Fetch saved recipes from the backend
       const savedRecipesResponse = await axios.get(
-        `http://localhost:8080/users/${user._id}/savedRecipe`,
+        `https://recipe-book-ycpw.onrender.com/users/${user._id}/savedRecipe`,
         {
           headers: {
             "Content-Type": "application/json",

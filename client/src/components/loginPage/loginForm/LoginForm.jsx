@@ -61,7 +61,7 @@ const LoginForm = () => {
     }
     formData.append("picture", values.picture.name);
     const savedUserResponse = await axios.post(
-      "http://localhost:8080/auth/register",
+      "https://recipe-book-ycpw.onrender.com/auth/register",
       formData,
       {
         headers: {
@@ -78,7 +78,7 @@ const LoginForm = () => {
 
   // function to handle login form submission
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await axios.post("http://localhost:8080/auth/login",
+    const loggedInResponse = await axios.post("https://recipe-book-ycpw.onrender.com/auth/login",
     values,
     {
       headers: {

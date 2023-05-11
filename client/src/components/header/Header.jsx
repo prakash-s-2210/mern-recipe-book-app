@@ -81,7 +81,7 @@ function Header({searchRecipes, isHome}) {
         >
           <img
             className="user-image"
-            src={`http://localhost:8080/assets/${user.picture}`}
+            src={`https://recipe-book-ycpw.onrender.com/assets/${user.picture}`}
             alt="user"
           />
           <span className="user-name">

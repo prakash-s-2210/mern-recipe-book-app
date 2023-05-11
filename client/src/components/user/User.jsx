@@ -16,7 +16,7 @@ const User = ({user}) => {
             <span className='user-email-style'>{user.email}</span>
         </div>
         <div>
-            <img  src={`http://localhost:8080/assets/${user.picture}`} alt={user.picture} className='user-image-style' />
+            <img  src={`https://recipe-book-ycpw.onrender.com/assets/${user.picture}`} alt={user.picture} className='user-image-style' />
         </div>
     </div>
   )
