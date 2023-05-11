@@ -3,7 +3,7 @@
 Live Site URL : 
 ```bash
 https://recipe-book-application.netlify.app/
-```
+``` 
 
 This project is a full-stack web application built using React for the frontend and Express.js with MongoDB for the backend. The frontend uses various packages such as Formik, Yup, FontAwesome, and React-Axios to create a sign-up page with form validation and file upload, a home page with a search bar to fetch data from Spoonacular API, and a profile page that displays user details and saved recipes.
 
