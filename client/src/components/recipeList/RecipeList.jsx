@@ -13,9 +13,17 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
  * @param {Boolean} isHome - Whether the recipe is being rendered on the home page
  * @returns {JSX.Element} - The recipe list component
  */
-const RecipeList = ({ recipe, handleRecipeDetails, onBookmarkClick, isBookmarked, isHome }) => {
+const RecipeList = ({ recipe, recipeType, handleRecipeDetails, onBookmarkClick, isBookmarked, isHome }) => {
   function handleRecipeClick(){
-    handleRecipeDetails(recipe);
+    if(recipeType === "searchedRecipe"){
+      handleRecipeDetails(true, recipe.id);
+    }
+    else if(recipeType === "randomRecipe"){
+      handleRecipeDetails(false, recipe);
+    }
+    else{
+      handleRecipeDetails(false, recipe);
+    }
   }
   return (
     <div className='recipe-container' onClick={handleRecipeClick}>

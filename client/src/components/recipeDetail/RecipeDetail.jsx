@@ -9,7 +9,7 @@ import "../recipeDetail/RecipeDetail.scss";
 const RecipeDetail = ({recipe}) => {
   const [activeTab, setActiveTab ] = useState('instructions')
   return (
-    <div className="recipe-detail-container">{console.log(recipe)}
+    <div className="recipe-detail-container">
       <h1 className="recipe-detail-heading">{recipe.title}</h1>
       <div className="recipe-detail-flex-container">
         <div className="recipe-detail-left-wrapper">

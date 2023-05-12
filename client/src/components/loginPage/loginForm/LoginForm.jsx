@@ -10,20 +10,69 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../../state/index";
 import Dropzone from "react-dropzone";
 import Input from "../customInput/Input";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Function to show error popup message
+const notifyError = ( message) => {
+  toast.error(message, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+};
+
+// Function to show success popup message
+const notifySuccess = ( message, delay) => {
+  toast.success(message, {
+    position: "top-center",
+    autoClose: delay,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+};
+
 
 // validation schema for register form
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      "Password must contain at least one special character"
+    )
+    .required("Password is required"),
   picture: yup.string().required("required"),
 });
 
 // validation schema for login form
 const loginSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      "Password must contain at least one special character"
+    )
+    .required("Password is required"),
 });
 
 // initial values for register form
@@ -54,37 +103,45 @@ const LoginForm = () => {
 
   // function to handle register form submission
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picture", values.picture.name);
-    const savedUserResponse = await axios.post(
-      "https://recipe-book-ycpw.onrender.com/auth/register",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try {
+      // this allows us to send form info with image
+      const formData = new FormData();
+      for (let value in values) {
+        formData.append(value, values[value]);
       }
-    );
-    const savedUser = await savedUserResponse.data;
-    onSubmitProps.resetForm();
-    if (savedUser) {
-      setPageType("login");
+      formData.append("picture", values.picture.name);
+      const savedUserResponse = await axios.post(
+        "https://recipe-book-ycpw.onrender.com/auth/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const savedUser = await savedUserResponse.data;
+      onSubmitProps.resetForm();
+      if (savedUser) {
+        notifySuccess("Successfully Registered!",1000);
+        setPageType("login");
+      }
+    } catch (error) {
+      notifyError("Email id already exists!");
     }
   };
 
   // function to handle login form submission
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await axios.post("https://recipe-book-ycpw.onrender.com/auth/login",
-    values,
-    {
-      headers: {
-        "Content-Type": "application/json",
+    try{
+    const loggedInResponse = await axios.post(
+      "https://recipe-book-ycpw.onrender.com/auth/login",
+      values,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
     const loggedIn = await loggedInResponse.data;
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -96,6 +153,15 @@ const LoginForm = () => {
       );
       navigate("/home");
     }
+  }
+  catch(error){
+    if(error.response.data.msg === "User does not exist. "){
+      notifyError("User does not exist !");
+    }
+    else{
+      notifyError("Invalid credentials !")
+    }
+  }
   };
 
   // function to handle form submission for both login and register forms
@@ -106,8 +172,8 @@ const LoginForm = () => {
 
   return (
     <Formik
-      onSubmit={handleFormSubmit}// Define the function to handle form submission
-      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}  // Define the initial values based on whether the user is logging in or registering
+      onSubmit={handleFormSubmit} // Define the function to handle form submission
+      initialValues={isLogin ? initialValuesLogin : initialValuesRegister} // Define the initial values based on whether the user is logging in or registering
       validationSchema={isLogin ? loginSchema : registerSchema} // Define the validation schema based on whether the user is logging in or registering
     >
       {(props) => (
@@ -129,7 +195,8 @@ const LoginForm = () => {
                       <input {...getInputProps()} />
                       {!props.values.picture ? ( // Render text to prompt user to add picture if no picture has been uploaded
                         <p className="add-picture">Add Picture Here</p>
-                      ) : ( // Render the uploaded picture and an edit icon if a picture has been uploaded
+                      ) : (
+                        // Render the uploaded picture and an edit icon if a picture has been uploaded
                         <div className="upload">
                           <span className="uploaded-file-text">
                             {props.values.picture.name}
@@ -141,6 +208,9 @@ const LoginForm = () => {
                   </div>
                 )}
               </Dropzone>
+              {props.errors.picture && (
+                <div className="error">{props.errors.picture}</div>
+              )}
             </>
           )}
           <Input label="Email Id" name="email" type="email" />
@@ -159,6 +229,18 @@ const LoginForm = () => {
               ? "Don't have an account? Sign Up here."
               : "Already have an account? Login here."}
           </div>
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </Form>
       )}
     </Formik>

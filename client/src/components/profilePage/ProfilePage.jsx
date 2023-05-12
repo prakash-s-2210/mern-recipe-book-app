@@ -61,7 +61,7 @@ const ProfilePage = () => {
 
 
   // Callback function to handle click on a recipe in the recipe list
-  function handleRecipeDetails(recipeDetail) {
+  function handleRecipeDetails(check , recipeDetail) {
     setRecipeDetail(recipeDetail);
   }
   
@@ -85,7 +85,6 @@ const ProfilePage = () => {
         ) : (
       <div className="profile-container">
         <User user={user} />
-        {console.log(recipes)}
         <h1 className="saved-recipes-text">Saved Recipes</h1>
         
           <div className="profile-recipe-catalogue-container">

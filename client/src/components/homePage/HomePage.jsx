@@ -60,8 +60,16 @@ const HomePage = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
    // Function to set recipe detail state
-  function handleRecipeDetails(recipeDetail) {
-    setRecipeDetail(recipeDetail);
+  const handleRecipeDetails = async (check, recipeDetail) => {
+    if(check){
+      const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeDetail}/information?apiKey=${API_KEY}`);
+      const data =  response.data;
+      console.log(data)
+      setRecipeDetail(data);
+    }
+    else{
+      setRecipeDetail(recipeDetail);
+    }
   }
 
   // Function to search recipes using Spoonacular API
@@ -100,14 +108,14 @@ const HomePage = () => {
          searchedRecipes &&
          searchedRecipes.map((recipe, index) => {
            return (
-             <RecipeList key={index} recipe={recipe}  handleRecipeDetails = {handleRecipeDetails} onBookmarkClick={handleBookmarkClick} isBookmarked={savedRecipes.includes(recipe.id) } isHome = {true} />
+             <RecipeList key={index} recipe={recipe} recipeType = "searchedRecipe" handleRecipeDetails = {handleRecipeDetails} onBookmarkClick={handleBookmarkClick} isBookmarked={savedRecipes.includes(recipe.id) } isHome = {true} />
            );
          }) 
          :
         randomRecipes &&
           randomRecipes.map((recipe, index) => {
             return (
-              <RecipeList key={index}  recipe={recipe}  handleRecipeDetails = {handleRecipeDetails} onBookmarkClick={handleBookmarkClick} isBookmarked={savedRecipes.includes(recipe.id)} isHome = {true} />
+              <RecipeList key={index}  recipe={recipe}  recipeType = "randomRecipe" handleRecipeDetails = {handleRecipeDetails} onBookmarkClick={handleBookmarkClick} isBookmarked={savedRecipes.includes(recipe.id)} isHome = {true} />
             );
           })  
           }
