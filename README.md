@@ -131,5 +131,5 @@ https://github.com/prakash-s-2210/mern-recipe-book-app/assets/94909544/6ebb4392-
 
  ## Author
 
-- [Prakash S](https://github.com/prakash-s-2210)
+- [Prakash S](https://www.linkedin.com/in/prakash2210/)
 
